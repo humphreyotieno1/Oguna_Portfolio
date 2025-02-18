@@ -2,9 +2,17 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Menu, X, ArrowDownCircle, Sun, Moon } from "lucide-react"
+import { Menu, X, ArrowDownCircle, Sun, Moon, ArrowUpCircle } from "lucide-react"
 import { motion } from "framer-motion"
 import About from "./About"
+import Experience from "./Experience"
+import Education from "./Education"
+import Skills from "./Skills"
+import Publications from "./Publications"
+import Awards from "./Awards"
+import Contact from "./Contact"
+import Volunteering from "./Volunteering"
+import BlogSection from "./Blog"
 
 const navItems = [
     { name: "About", href: "#about" },
@@ -32,6 +40,7 @@ const floatingAnimation = {
 const HeroWithNavbar = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [theme, setTheme] = useState("light")
+    const [showScrollToTop, setShowScrollToTop] = useState(false)
 
     useEffect(() => {
         const savedTheme = localStorage.getItem("theme")
@@ -40,6 +49,19 @@ const HeroWithNavbar = () => {
         const initialTheme = savedTheme || (systemPrefersDark ? "dark" : "light")
         setTheme(initialTheme)
         document.documentElement.classList.toggle("dark", initialTheme === "dark")
+
+        const handleScroll = () => {
+            if (window.scrollY > 300) {
+                setShowScrollToTop(true)
+            } else {
+                setShowScrollToTop(false)
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
     }, [])
 
     const toggleTheme = () => {
@@ -47,6 +69,10 @@ const HeroWithNavbar = () => {
         setTheme(newTheme)
         localStorage.setItem("theme", newTheme)
         document.documentElement.classList.toggle("dark")
+    }
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     return (
@@ -116,7 +142,7 @@ const HeroWithNavbar = () => {
                                     >
                                         <Link
                                             href={item.href}
-                                            className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300"
+                                            className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-bold transition-colors duration-300"
                                         >
                                             {item.name}
                                         </Link>
@@ -182,7 +208,7 @@ const HeroWithNavbar = () => {
                                             <Link
                                                 key={item.name}
                                                 href={item.href}
-                                                className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300"
+                                                className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-bold transition-colors duration-300"
                                                 onClick={() => setIsOpen(false)}
                                             >
                                                 {item.name}
@@ -238,10 +264,20 @@ const HeroWithNavbar = () => {
                                     </Link>
                                     <Link
                                         href="#contact"
-                                        className="inline-flex items-center bg-transparent border-2 border-black dark:border-white dark:text-white px-6 py-3 rounded-full font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-300"
+                                        className="inline-flex items-center bg-transparent border-2 border-black dark:border-white dark:text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-500 dark:hover:bg-white/10 transition-colors duration-300"
                                     >
                                         Get in Touch
                                     </Link>
+                                    <div className="mt-4 pl-24 space-y-4 items-center justify-center">
+                                    <Link
+                                        href="/Chrispin Oguna_Curriculum Vitae Lecturer Computer Security_MUT 34 1 2025.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center bg-transparent border-2 border-black dark:border-white dark:text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-500 dark:hover:bg-white/10 transition-colors duration-300"
+                                    >
+                                        Get CV
+                                    </Link>
+                                    </div>
                                 </motion.div>
                             </div>
 
@@ -249,15 +285,15 @@ const HeroWithNavbar = () => {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
-                                className="relative hidden md:block"
+                                className="relative md:block"
                             >
                                 <div className="absolute inset-0 bg-gray-400/10 dark:bg-indigo-500/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
                                 <motion.img
                                     initial={{ y: 20 }}
                                     animate={{ y: 0 }}
                                     transition={floatingAnimation.animate.transition}
-                                    className="relative w-full max-w-lg mx-auto rounded-lg shadow-xl"
-                                    src="/api/placeholder/500/600"
+                                    className="relative w-full max-w-lg mx-auto rounded-lg shadow-l"
+                                    src="/chris.png"
                                     alt="Chrispin Oguna"
                                 />
                             </motion.div>
@@ -265,7 +301,27 @@ const HeroWithNavbar = () => {
                     </div>
                 </section>
 
-                <About />
+                <section className="relative min-h-screen pt-16 font-montserrat z-10 text-black dark:text-white">
+                    <About />
+                    <Experience />
+                    <Education />
+                    <Skills />
+                    <Publications />
+                    <BlogSection />
+                    <Awards />
+                    <Volunteering />
+                    <Contact />
+                </section>
+
+                {showScrollToTop && (
+                    <div
+                        onClick={scrollToTop}
+                        className="fixed bottom-5 right-5 cursor-pointer p-3 bg-indigo-600 text-white rounded-full shadow-lg transition-transform transform hover:scale-110 z-10"
+                        title="Back to Top"
+                    >
+                        <ArrowUpCircle className="h-8 w-8" />
+                    </div>
+                )}
             </div>
         </>
     )
