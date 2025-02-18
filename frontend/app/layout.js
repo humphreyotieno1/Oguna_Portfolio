@@ -1,5 +1,4 @@
 import "./globals.css";
-import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Chrispin Oguna - ICT Lecturer and HCIE Datacomm Expert",
@@ -24,7 +23,6 @@ export default function RootLayout({ children }) {
       </head>
       <body className="bg-white font-lato">
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );

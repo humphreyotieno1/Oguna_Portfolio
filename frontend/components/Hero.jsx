@@ -13,6 +13,7 @@ import Awards from "./Awards"
 import Contact from "./Contact"
 import Volunteering from "./Volunteering"
 import BlogSection from "./Blog"
+import Footer from "./Footer"
 
 const navItems = [
     { name: "About", href: "#about" },
@@ -221,7 +222,7 @@ const HeroWithNavbar = () => {
                     )}
                 </nav>
 
-                <section className="relative min-h-screen pt-16 font-montserrat z-10">
+                <section className="relative min-h-screen md:pt-28 sm:mt-20 mt-20 pt-16 font-montserrat z-10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-8 min-h-[calc(100vh-4rem)]">
                             <div className="text-black dark:text-white">
@@ -229,7 +230,7 @@ const HeroWithNavbar = () => {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.8, ease: "easeOut" }}
-                                    className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4"
+                                    className="text-5xl sm:text-5xl md:text-6xl font-bold mb-4"
                                 >
                                     Chrispin Oguna
                                 </motion.h1>
@@ -311,6 +312,7 @@ const HeroWithNavbar = () => {
                     <Awards />
                     <Volunteering />
                     <Contact />
+                    <Footer />
                 </section>
 
                 {showScrollToTop && (

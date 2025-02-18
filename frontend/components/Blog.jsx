@@ -42,8 +42,8 @@ export default function BlogSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-5xl text-center justify-center font-extrabold font-montserrat inline-block">
-                        CONFERENCES AND SEMINARS
+                    <h2 className="text-5xl text-center justify-center font-bold font-montserrat inline-block">
+                        Conferences and Seminars
                     </h2>
                 </motion.div>
 
