@@ -222,7 +222,7 @@ const HeroWithNavbar = () => {
                     )}
                 </nav>
 
-                <section className="relative min-h-screen md:pt-28 sm:mt-20 mt-20 pt-16 font-montserrat z-10">
+                <section className="relative min-h-screen md:pt-28 sm:mt-20 mt-20 lg:mt-8 pt-16 font-montserrat z-10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-8 min-h-[calc(100vh-4rem)]">
                             <div className="text-black dark:text-white">
@@ -285,16 +285,16 @@ const HeroWithNavbar = () => {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.8, delay: 0.2 }}
-                                className="relative md:block"
+                                transition={{ duration: 0.8, delay: 0.4 }}
+                                className="relative md:block lg:mt-0 mt-8"
                             >
                                 <div className="absolute inset-0 bg-gray-400/10 dark:bg-indigo-500/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
                                 <motion.img
                                     initial={{ y: 20 }}
                                     animate={{ y: 0 }}
                                     transition={floatingAnimation.animate.transition}
-                                    className="relative w-full max-w-lg mx-auto rounded-lg shadow-l"
-                                    src="/chris.png"
+                                    className="relative w-full max-w-lg mx-auto rounded-lg shadow-l lg:mt-4"
+                                    src="/oguna.png"
                                     alt="Chrispin Oguna"
                                 />
                             </motion.div>
