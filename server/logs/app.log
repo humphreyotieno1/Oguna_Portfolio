@@ -1,0 +1,1 @@
+[2025-02-24 07:27:59] ERROR [app.py:163] - Missing required environment variables: SMTP_USERNAME, SMTP_PASSWORD, RECIPIENT_EMAIL

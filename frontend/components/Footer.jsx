@@ -23,7 +23,7 @@ export default function Footer() {
                         </svg>
                     </a>
                 </li>
-                <li>
+                {/* <li>
                     <a href="https://www.instagram.com/chrispinoguna/" target="_blank" rel="noopener noreferrer">
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" viewBox="0 0 152 152">
                             <linearGradient id="a" x1="22.26" x2="129.74" y1="22.26" y2="129.74" gradientUnits="userSpaceOnUse">
@@ -53,7 +53,7 @@ export default function Footer() {
                             <path fill="#fff" d="m680.617 557.98 262.632-305.288h-62.235L652.97 517.77 470.833 252.692H260.759l275.427 400.844-275.427 320.142h62.239l240.82-279.931 192.35 279.931h210.074L680.601 557.98zM345.423 299.545h95.595l440.024 629.411h-95.595z" />
                         </svg>
                     </a>
-                </li>
+                </li> */}
             </ul>
 
             <p className="text-base text-gray-300">© {new Date().getFullYear()} Chrispin Oguna. All rights reserved.</p>

@@ -222,7 +222,7 @@ const HeroWithNavbar = () => {
                     )}
                 </nav>
 
-                <section className="relative min-h-screen md:pt-28 sm:mt-20 mt-20 lg:mt-8 pt-16 font-montserrat z-10">
+                <section className="relative min-h-screen md:pt-28 sm:mt-20 mt-20 lg:mt-6 pt-16 font-montserrat z-10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-8 min-h-[calc(100vh-4rem)]">
                             <div className="text-black dark:text-white">
@@ -250,31 +250,34 @@ const HeroWithNavbar = () => {
                                 >
                                     Dedicated to empowering the next generation of ICT professionals through expert instruction and hands-on training in advanced networking and datacenter technologies.
                                 </motion.p>
+
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-                                    className="mt-8 space-x-4"
+                                    className="mt-8 flex flex-col items-center gap-4 md:items-start"
                                 >
-                                    <Link
-                                        href="#about"
-                                        className="inline-flex items-center bg-white dark:bg-indigo-600 border-black dark:border-none text-indigo-600 dark:text-white px-6 py-3 rounded-full font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-700 transition-colors duration-300"
-                                    >
-                                        Learn More
-                                        <ArrowDownCircle className="ml-2" />
-                                    </Link>
-                                    <Link
-                                        href="#contact"
-                                        className="inline-flex items-center bg-transparent border-2 border-black dark:border-white dark:text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-500 dark:hover:bg-white/10 transition-colors duration-300"
-                                    >
-                                        Get in Touch
-                                    </Link>
-                                    <div className="mt-4 pl-24 space-y-4 items-center justify-center">
+                                    <div className="flex flex-row gap-4">
+                                        <Link
+                                            href="#about"
+                                            className="flex items-center justify-center bg-white dark:bg-indigo-600 border-black dark:border-none text-indigo-600 dark:text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-700 transition-colors duration-300 text-sm sm:text-base"
+                                        >
+                                            Learn More
+                                            <ArrowDownCircle className="ml-2 h-5 w-5" />
+                                        </Link>
+                                        <Link
+                                            href="#contact"
+                                            className="flex items-center justify-center bg-transparent border-2 border-black dark:border-white dark:text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-semibold hover:bg-blue-500 dark:hover:bg-white/10 transition-colors duration-300 text-sm sm:text-base"
+                                        >
+                                            Get in Touch
+                                        </Link>
+                                    </div>
+                                    <div className="w-full flex md:justify-start lg:ml-32 justify-center">
                                     <Link
                                         href="/Chrispin Oguna_Curriculum Vitae Lecturer Computer Security_MUT 34 1 2025.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center bg-transparent border-2 border-black dark:border-white dark:text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-500 dark:hover:bg-white/10 transition-colors duration-300"
+                                        className="flex items-center justify-start sm:justify-center bg-transparent border-2 border-black dark:border-white dark:text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-semibold hover:bg-blue-500 dark:hover:bg-white/10 transition-colors duration-300 text-sm sm:text-base"
                                     >
                                         Get CV
                                     </Link>

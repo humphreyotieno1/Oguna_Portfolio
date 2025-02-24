@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Send, Loader } from "lucide-react";
 import { motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -9,42 +10,43 @@ export default function Contact() {
         subject: '',
         message: ''
     });
-    
+
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
-    
+
     const validateForm = () => {
         const newErrors = {};
-        
-        if (!formData.name) newErrors.name = 'Name is required';
-        
+
+        if (!formData.name || formData.name.length < 2 || formData.name.length > 50) {
+            newErrors.name = 'Name must be between 2 and 50 characters';
+        }
+
         if (!formData.email) {
             newErrors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
             newErrors.email = 'Email address is invalid';
         }
-        
-        if (!formData.subject) newErrors.subject = 'Subject is required';
-        
-        if (!formData.message) {
-            newErrors.message = 'Message is required';
-        } else if (formData.message.length < 10) {
-            newErrors.message = 'Message is too short (minimum 10 characters)';
+
+        if (!formData.subject || formData.subject.length < 3 || formData.subject.length > 100) {
+            newErrors.subject = 'Subject must be between 3 and 100 characters';
         }
-        
+
+        if (!formData.message || formData.message.length < 10 || formData.message.length > 5000) {
+            newErrors.message = 'Message must be between 10 and 5000 characters';
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-    
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: value
         }));
-        
-        // Clear error when user starts typing
+
         if (errors[name]) {
             setErrors(prev => ({
                 ...prev,
@@ -52,39 +54,64 @@ export default function Contact() {
             }));
         }
     };
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (validateForm()) {
             setIsSubmitting(true);
-            
-            // Simulate API call
+
             try {
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                setIsSubmitted(true);
-                setFormData({ name: '', email: '', subject: '', message: '' });
-                setTimeout(() => setIsSubmitted(false), 3000);
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    if (data.errors) {
+                        setErrors(data.errors);
+                        Object.values(data.errors).forEach(error => {
+                            toast.error(error);
+                        });
+                    } else {
+                        throw new Error(data.message || 'Failed to send message');
+                    }
+                } else {
+                    setIsSubmitted(true);
+                    toast.success('Message sent successfully!');
+                    setFormData({ name: '', email: '', subject: '', message: '' });
+                    setErrors({});
+                    setTimeout(() => setIsSubmitted(false), 3000);
+                }
             } catch (error) {
-                console.error('Error submitting form:', error);
+                toast.error(error.message || 'An error occurred. Please try again later.');
                 setErrors({ form: 'Failed to submit the form. Please try again.' });
             } finally {
                 setIsSubmitting(false);
             }
+        } else {
+            Object.values(errors).forEach(error => {
+                toast.error(error);
+            });
         }
     };
-    
+
     const formVariants = {
         hidden: { opacity: 0, y: 20 },
-        visible: { 
-            opacity: 1, 
+        visible: {
+            opacity: 1,
             y: 0,
             transition: {
                 duration: 0.5
             }
         }
     };
-    
+
     const itemVariants = {
         hidden: { opacity: 0, x: -20 },
         visible: i => ({
@@ -96,25 +123,26 @@ export default function Contact() {
             }
         })
     };
-    
+
+
     const successMessageVariants = {
         hidden: { opacity: 0, scale: 0.8 },
-        visible: { 
-            opacity: 1, 
+        visible: {
+            opacity: 1,
             scale: 1,
             transition: { duration: 0.3, ease: "easeOut" }
         },
-        exit: { 
+        exit: {
             opacity: 0,
             scale: 0.8,
             transition: { duration: 0.3, ease: "easeIn" }
         }
     };
-    
+
     return (
         <section id="contact" className="py-20">
             <div className="container mx-auto px-4">
-                <motion.h2 
+                <motion.h2
                     className="text-5xl font-bold text-center mb-12 text-gray-800 dark:text-white"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -122,7 +150,7 @@ export default function Contact() {
                 >
                     Let's Talk
                 </motion.h2>
-                
+
                 <div className="grid sm:grid-cols-2 items-start gap-12 p-8 mx-auto max-w-4xl bg-white dark:bg-gray-800 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] dark:shadow-[0_2px_10px_-3px_rgba(66,153,225,0.3)] rounded-md">
                     <motion.div
                         initial="hidden"
@@ -152,7 +180,7 @@ export default function Contact() {
                                     </div>
                                     <a href="mailto:chrispin.oguna@zetech.ac.ke" className="text-gray-700 dark:text-gray-300 text-sm ml-4 hover:text-blue-500">
                                         <small className="block text-gray-500 dark:text-gray-400">Email</small>
-                                        <strong>chrispin.oguna@zetech.ac.ke</strong>
+                                        <strong>chris.oguna@gmail.com</strong>
                                     </a>
                                 </motion.li>
                                 <motion.li custom={2} variants={itemVariants} initial="hidden" animate="visible" className="flex items-center">
@@ -169,7 +197,7 @@ export default function Contact() {
 
                         <div className="mt-12">
                             <h4 className="text-gray-800 dark:text-gray-200 text-base font-bold">Connect With Me</h4>
-                            <motion.ul 
+                            <motion.ul
                                 className="flex mt-4 space-x-4"
                                 initial="hidden"
                                 animate="visible"
@@ -184,7 +212,7 @@ export default function Contact() {
                                 }}
                             >
                                 {['linkedin'].map((social, index) => (
-                                    <motion.li 
+                                    <motion.li
                                         key={index}
                                         className="bg-[#e6e6e6cf] dark:bg-gray-700 h-10 w-10 rounded-full flex items-center justify-center shrink-0"
                                         variants={{
@@ -212,7 +240,7 @@ export default function Contact() {
                         </div>
                     </motion.div>
 
-                    <motion.form 
+                    <motion.form
                         onSubmit={handleSubmit}
                         className="space-y-4"
                         initial="hidden"
@@ -238,8 +266,8 @@ export default function Contact() {
                         ) : (
                             <>
                                 <div>
-                                    <input 
-                                        type='text' 
+                                    <input
+                                        type='text'
                                         name="name"
                                         value={formData.name}
                                         onChange={handleChange}
@@ -248,10 +276,10 @@ export default function Contact() {
                                     />
                                     {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
                                 </div>
-                                
+
                                 <div>
-                                    <input 
-                                        type='email' 
+                                    <input
+                                        type='email'
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
@@ -260,10 +288,10 @@ export default function Contact() {
                                     />
                                     {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
                                 </div>
-                                
+
                                 <div>
-                                    <input 
-                                        type='text' 
+                                    <input
+                                        type='text'
                                         name="subject"
                                         value={formData.subject}
                                         onChange={handleChange}
@@ -272,25 +300,25 @@ export default function Contact() {
                                     />
                                     {errors.subject && <p className="mt-1 text-sm text-red-500">{errors.subject}</p>}
                                 </div>
-                                
+
                                 <div>
-                                    <textarea 
+                                    <textarea
                                         name="message"
                                         value={formData.message}
                                         onChange={handleChange}
-                                        placeholder='Message' 
+                                        placeholder='Message'
                                         rows="6"
                                         className={`w-full text-gray-800 dark:text-gray-200 rounded-md px-4 border ${errors.message ? 'border-red-500 dark:border-red-400' : 'border-gray-300 dark:border-gray-600'} text-sm pt-2.5 outline-none focus:border-blue-500 dark:focus:border-blue-400 bg-transparent dark:bg-gray-700`}
                                     ></textarea>
                                     {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message}</p>}
                                 </div>
-                                
+
                                 {errors.form && (
                                     <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 text-red-700 dark:text-red-400 px-4 py-3 rounded">
                                         <p>{errors.form}</p>
                                     </div>
                                 )}
-                                
+
                                 <motion.button
                                     type='submit'
                                     disabled={isSubmitting}
