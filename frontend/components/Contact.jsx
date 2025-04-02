@@ -79,7 +79,7 @@ export default function Contact() {
                             toast.error(error);
                         });
                     } else {
-                        throw new Error(data.message || 'Failed to send</svg> message');
+                        throw new Error(data.message || 'Failed to send message');
                     }
                 } else {
                     setIsSubmitted(true);
@@ -211,7 +211,7 @@ export default function Contact() {
                                     }
                                 }}
                             >
-                                {['linkedin', 'facebook', 'instagram', 'x'].map((social, index) => (
+                                {['linkedin', 'facebook', 'instagram', 'x', 'orcid'].map((social, index) => (
                                     <motion.li
                                         key={index}
                                         className="bg-[#e6e6e6cf] dark:bg-gray-700 h-10 w-10 rounded-full flex items-center justify-center shrink-0"
@@ -226,8 +226,9 @@ export default function Contact() {
                                             social === 'linkedin' ? "https://www.linkedin.com/in/chrispin-oguna-01b364233/" :
                                                 social === 'facebook' ? "https://www.facebook.com/chrispin.oguna.3" :
                                                     social === 'instagram' ? "https://www.instagram.com/ogunachrispin/?hl=en" :
-                                                        social === 'x' ? "https://x.com/chrisoguna" : "#"
-                                        } className="text-blue-500 hover:text-blue-600 transition-colors">
+                                                        social === 'x' ? "https://x.com/chrisoguna" : 
+                                                            social === 'orcid' ? "https://orcid.org/0009-0006-6057-1384" : "#"
+                                        } className="text-blue-500 hover:text-blue-600 transition-colors" target={social === 'orcid' ? "orcid.widget" : "_blank"} rel={social === 'orcid' ? "me noopener noreferrer" : "noopener noreferrer"}>
                                             {social === 'linkedin' && (
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill='currentColor' viewBox="0 0 24 24">
                                                     <path d="M5.372 24H.418V7.97h4.954V24zM2.892 5.79C1.295 5.79 0 4.474 0 2.895 0 1.316 1.295 0 2.892 0c1.596 0 2.892 1.316 2.892 2.895s-1.296 2.895-2.892 2.895zM24 24h-4.954v-8.2c0-1.84-.036-4.202-2.56-4.202-2.56 0-2.95 2.002-2.95 4.07V24H8.582V7.97h4.75v2.176h.07c.655-1.242 2.256-2.553 4.64-2.553 4.962 0 5.876 3.266 5.876 7.517V24z" />
@@ -248,11 +249,43 @@ export default function Contact() {
                                                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                                                 </svg>
                                             )}
+                                            {social === 'orcid' && (
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 256 256" fill="currentColor">
+                                                    <path d="M128 0C57.4 0 0 57.4 0 128s57.4 128 128 128 128-57.4 128-128S198.6 0 128 0zm0 242.3c-63.1 0-114.3-51.2-114.3-114.3S64.9 13.7 128 13.7 242.3 64.9 242.3 128 191.1 242.3 128 242.3z" />
+                                                    <path d="M86.3 186.2H70.9V79.1h15.4v107.1zm22.9-107.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h26.2c34.1 0 42.1-25.9 42.1-39.7 0-21.5-13.7-39.7-43.7-39.7h-24.7v79.4z" />
+                                                    <path d="M88.7 56.8c0 5.5-4.5 10.1-10.1 10.1s-10.1-4.6-10.1-10.1c0-5.6 4.5-10.1 10.1-10.1s10.1 4.6 10.1 10.1z" />
+                                                </svg>
+                                            )}
                                         </a>
                                     </motion.li>
                                 ))}
                             </motion.ul>
                         </div>
+
+                        {/* ORCID link with icon as requested in the format */}
+                        {/* <motion.div 
+                            custom={3}
+                            variants={itemVariants}
+                            initial="hidden"
+                            animate="visible"
+                            className="mt-6"
+                        >
+                            <a
+                                id="cy-effective-orcid-url"
+                                className="underline text-blue-500 hover:text-blue-600 transition-colors flex items-center"
+                                href="https://orcid.org/0009-0006-6057-1384"
+                                target="orcid.widget"
+                                rel="me noopener noreferrer"
+                            >
+                                <span>ORCID</span>
+                                <img
+                                    src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
+                                    className="w-4 h-4 ml-2"
+                                    alt="ORCID iD icon"
+                                />
+                                <span className="ml-2">0009-0006-6057-1384</span>
+                            </a>
+                        </motion.div> */}
                     </motion.div>
 
                     <motion.form
