@@ -178,9 +178,9 @@ export default function Contact() {
                                     <div className="bg-[#e6e6e6cf] dark:bg-gray-700 h-10 w-10 rounded-full flex items-center justify-center shrink-0">
                                         <Mail className="text-blue-500 w-5 h-5" />
                                     </div>
-                                    <a href="mailto:chrispin.oguna@zetech.ac.ke" className="text-gray-700 dark:text-gray-300 text-sm ml-4 hover:text-blue-500">
+                                    <a href="mailto:chrisoguna@gmail.com" className="text-gray-700 dark:text-gray-300 text-sm ml-4 hover:text-blue-500">
                                         <small className="block text-gray-500 dark:text-gray-400">Email</small>
-                                        <strong>chris.oguna@gmail.com</strong>
+                                        <strong>chrisoguna@gmail.com</strong>
                                     </a>
                                 </motion.li>
                                 <motion.li custom={2} variants={itemVariants} initial="hidden" animate="visible" className="flex items-center">
